@@ -1,0 +1,18 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: solar-system-production
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/lucasdev-oom/gitops-argocd
+    targetRevision: main
+    path: solar-system/production     # ← watches production folder
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: production
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true          # ← creates production namespace automatically
+    # NO automated sync — production requires manual review + click SYNC in ArgoCD
