@@ -4,13 +4,15 @@ metadata:
   labels:
     app: solar-system
   name: solar-system-service
-  namespace: staging
+  namespace: staging          # or production
+  annotations:
+    service.beta.kubernetes.io/aws-load-balancer-type: "classic"          # ← forces CLB
+    service.beta.kubernetes.io/aws-load-balancer-cross-zone-load-balancing-enabled: "true"  # ← optional but recommended
 spec:
   ports:
-  - port: 80 #change to 80
+  - port: 80
     protocol: TCP
-    targetPort: 80 #change to 80
-    nodePort: 30333
+    targetPort: 80
   selector:
     app: solar-system
   type: LoadBalancer
