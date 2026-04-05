@@ -4,10 +4,11 @@ metadata:
   labels:
     app: solar-system
   name: solar-system-service
-  namespace: staging          # or production
+  namespace: staging       # change to production for prod
   annotations:
-    service.beta.kubernetes.io/aws-load-balancer-type: "classic"          # ← forces CLB
-    service.beta.kubernetes.io/aws-load-balancer-cross-zone-load-balancing-enabled: "true"  # ← optional but recommended
+    service.beta.kubernetes.io/aws-load-balancer-type: "external"
+    service.beta.kubernetes.io/aws-load-balancer-nlb-target-type: "instance"
+    service.beta.kubernetes.io/aws-load-balancer-scheme: "internet-facing"
 spec:
   ports:
   - port: 80
